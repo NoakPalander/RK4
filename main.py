@@ -60,7 +60,7 @@ def main():
     deluxe_data = euler_deluxe_method(initial=(0.0, 1.0), delta_x=0.2, target=1.0, derv=lambda _, y: y * y)
     rk4_data = runge_kutta(initial=(0.0, 1.0), delta_x=0.2, target=1.0, derv=lambda _, y: y * y)
 
-
+    ax1.set_xlim([0.4, 1])
     ax1.plot(list(map(lambda item: item[0], euler_data)), list(map(lambda item: item[1], euler_data)),
              label="Euler's method", color='red')
 
@@ -74,6 +74,7 @@ def main():
     deluxe_data = euler_deluxe_method(initial=(0.0, 1.0), delta_x=0.1, target=1.0, derv=lambda _, y: y * y)
     rk4_data = runge_kutta(initial=(0.0, 1.0), delta_x=0.1, target=1.0, derv=lambda _, y: y * y)
 
+    ax2.set_xlim([ 0.4, 1 ])
     ax2.plot(list(map(lambda item: item[0], euler_data)), list(map(lambda item: item[1], euler_data)),
              label="Euler's method", color='red')
 
@@ -87,6 +88,7 @@ def main():
     deluxe_data = euler_deluxe_method(initial=(0.0, 1.0), delta_x=0.05, target=1.0, derv=lambda _, y: y * y)
     rk4_data = runge_kutta(initial=(0.0, 1.0), delta_x=0.05, target=1.0, derv=lambda _, y: y * y)
 
+    ax3.set_xlim([ 0.4, 1 ])
     ax3.plot(list(map(lambda item: item[0], euler_data)), list(map(lambda item: item[1], euler_data)),
              label="Euler's method", color='red')
 
