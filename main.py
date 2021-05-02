@@ -1,6 +1,7 @@
 #!venv/bin/python
 
 from matplotlib import pyplot as plt
+from matplotlib import gridspec
 
 
 def euler_method(initial: tuple, delta_x: float, target: float, derv) -> list:
@@ -54,55 +55,61 @@ def runge_kutta(initial: tuple, delta_x: float, target: float, derv) -> list:
 
 
 def main():
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 10))
-
+    gs = gridspec.GridSpec(2, 2)
+    
     euler_data = euler_method(initial=(0.0, 1.0), delta_x=0.2, target=1.0, derv=lambda _, y: y * y)
     deluxe_data = euler_deluxe_method(initial=(0.0, 1.0), delta_x=0.2, target=1.0, derv=lambda _, y: y * y)
     rk4_data = runge_kutta(initial=(0.0, 1.0), delta_x=0.2, target=1.0, derv=lambda _, y: y * y)
-
+    
+    ax1 = plt.subplot(gs[0, 0])
+    ax1.set_title(r'$\Delta x = 0.2$')
     ax1.set_xlim([0.4, 1])
     ax1.plot(list(map(lambda item: item[0], euler_data)), list(map(lambda item: item[1], euler_data)),
-             label="Euler's method", color='red')
-
+             label=r"$y_e$: Euler's method", color='red')
+    
     ax1.plot(list(map(lambda item: item[0], deluxe_data)), list(map(lambda item: item[1], deluxe_data)),
-             label="Euler's improved method", color='blue')
-
+             label=r"$y_{ei}$: Euler's improved method", color='blue')
+    
     ax1.plot(list(map(lambda item: item[0], rk4_data)), list(map(lambda item: item[1], rk4_data)),
-             label="Runge Kutta 4th order", color='green')
-
+             label=r"$y_{rk}$: Runge Kutta 4th order", color='green')
+    
     euler_data = euler_method(initial=(0.0, 1.0), delta_x=0.1, target=1.0, derv=lambda _, y: y * y)
     deluxe_data = euler_deluxe_method(initial=(0.0, 1.0), delta_x=0.1, target=1.0, derv=lambda _, y: y * y)
     rk4_data = runge_kutta(initial=(0.0, 1.0), delta_x=0.1, target=1.0, derv=lambda _, y: y * y)
-
-    ax2.set_xlim([ 0.4, 1 ])
+    
+    ax2 = plt.subplot(gs[0, 1])
+    ax2.set_title(r'$\Delta x = 0.1$')
+    ax2.set_xlim([0.4, 1])
+    
     ax2.plot(list(map(lambda item: item[0], euler_data)), list(map(lambda item: item[1], euler_data)),
-             label="Euler's method", color='red')
-
+             label=r"$y_e$: Euler's method", color='red')
+    
     ax2.plot(list(map(lambda item: item[0], deluxe_data)), list(map(lambda item: item[1], deluxe_data)),
-             label="Euler's improved method", color='blue')
-
+             label=r"$y_{ei}$: Euler's improved method", color='blue')
+    
     ax2.plot(list(map(lambda item: item[0], rk4_data)), list(map(lambda item: item[1], rk4_data)),
-             label="Runge Kutta 4th order", color='green')
-
+             label=r"$y_{rk}$: Runge Kutta 4th order", color='green')
+    
     euler_data = euler_method(initial=(0.0, 1.0), delta_x=0.05, target=1.0, derv=lambda _, y: y * y)
     deluxe_data = euler_deluxe_method(initial=(0.0, 1.0), delta_x=0.05, target=1.0, derv=lambda _, y: y * y)
     rk4_data = runge_kutta(initial=(0.0, 1.0), delta_x=0.05, target=1.0, derv=lambda _, y: y * y)
-
-    ax3.set_xlim([ 0.4, 1 ])
+    
+    ax3 = plt.subplot(gs[1, :])
+    ax3.set_title(r'$\Delta x = 0.05$')
+    ax3.set_xlim([0.4, 1])
+    
     ax3.plot(list(map(lambda item: item[0], euler_data)), list(map(lambda item: item[1], euler_data)),
-             label="Euler's method", color='red')
-
+             label=r"$y_e$: Euler's method", color='red')
+    
     ax3.plot(list(map(lambda item: item[0], deluxe_data)), list(map(lambda item: item[1], deluxe_data)),
-             label="Euler's improved method", color='blue')
-
+             label=r"$y_{ei}$: Euler's improved method", color='blue')
+    
     ax3.plot(list(map(lambda item: item[0], rk4_data)), list(map(lambda item: item[1], rk4_data)),
-             label="Runge Kutta 4th order", color='green')
-
-    ax1.legend()
-    ax2.legend()
-    ax3.legend()
+             label=r"$y_{rk}$: Runge Kutta 4th order", color='green')
+    
+    plt.suptitle(r'Numerical solution to $\;\frac{dy}{dx} = y^2$', fontsize=12)
+    plt.legend(bbox_to_anchor=(0.5, 2.4), loc='upper center', ncol=3)
     plt.show()
-    #plt.savefig('figure.png')
 
 
 if __name__ == '__main__':
